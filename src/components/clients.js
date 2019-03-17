@@ -1,5 +1,7 @@
-import React from "react"
-import styled from "styled-components"
+import React, {useState} from "react"
+import styled, {css} from "styled-components"
+import Tilt from 'react-tilt'
+import isEqual from 'lodash.isEqual'
 
 import hermanMiller from "../images/herman_miller.svg"
 import casper from "../images/casper.svg"
@@ -65,19 +67,24 @@ const InnerContent = styled.div`
 `
 
 const Logo = styled.input`
+  transition: opacity .2s ease-in-out;
   opacity: 0.4;
 
   &:hover {
     opacity: 1;
   }
+
+  ${props => props.active && css`
+    opacity: 1;
+  `}
 `
 
 const clients = [
   [
     {
       name: 'Herman Miller',
-      project: '',
-      technologies: '',
+      project: 'hm',
+      technologies: 'react',
       image: hermanMiller
     },
     {
@@ -88,22 +95,22 @@ const clients = [
     },
     {
       name: 'Digital Mckinsey',
-      project: '',
-      technologies: '',
+      project: 'dm',
+      technologies: 'node',
       image: digitalMckinsey,
     },
   ],
   [
     {
       name: 'Foundwork',
-      project: '',
-      technologies: '',
+      project: 'fw',
+      technologies: 'ruby',
       image: foundwork,
     },
     {
       name: 'Marley Spoon',
-      project: '',
-      technologies: '',
+      project: 'ms',
+      technologies: 'backbone',
       image: marleySpoon,
     },
     ,
@@ -111,74 +118,107 @@ const clients = [
   [
     {
       name: 'Diane von Furstenburg',
-      project: '',
-      technologies: '',
+      project: 'dvf',
+      technologies: 'as',
       image: dvf,
     },
     {
       name: 'Sanctuary Computer',
-      project: '',
-      technologies: '',
+      project: 'sc',
+      technologies: 'sdfds',
       image: sanctuaryComputer,
     },
   ],
   [{
       name: 'Care Of',
-      project: '',
-      technologies: '',
+      project: 'ca',
+      technologies: 'react',
       image: careOf,
     },
     {
       name: 'Human NYC',
-      project: '',
-      technologies: '',
+      project: 'human',
+      technologies: 'react',
       image: humanNyc,
     },
     {
       name: 'Klarna',
-      project: '',
-      technologies: '',
+      project: 'kl',
+      technologies: 'node',
       image: klarna,
     },
   ],
 ]
 
-const Clients = () => (
-  <Container>
-    <HeaderCopy>
-      Clients &amp; Collaborators
-    </HeaderCopy>
-    <ClientsContainer>
-      <OuterRow>
-        {clients[0].map(({image, name}) => (
-          <Logo type="image" src={image} name={name} />
 
-        ))}
-      </OuterRow>
-      <InnerContainer>
-        <InnerColumn>
-        {clients[1].map(({image, name}) => (
-          <Logo type="image" src={image} name={name} />
-        ))}
-        </InnerColumn>
-      <InnerContent>
-      <InnerText>
-        some text here
-      </InnerText>
-      </InnerContent>
-        <InnerColumn>
-        {clients[2].map(({image, name}) => (
-          <Logo type="image" src={image} name={name} />
-        ))}
-        </InnerColumn>
-      </InnerContainer>
-      <OuterRow>
-        {clients[3].map(({image, name}) => (
-          <Logo type="image" src={image} name={name} />
-        ))}
-      </OuterRow>
-    </ClientsContainer>
-  </Container>
+
+const ClientButton = ({ image, name, onClick, active }) => (
+  <Tilt >
+    <Logo type="image" src={image} name={name} active={active} onClick={onClick}/>
+  </Tilt>
 )
+
+const Clients = () => {
+  const [activeIndex, setActiveIndex] = useState(`${[0][0]}`)
+
+  return (
+    <Container>
+      <HeaderCopy>
+        Clients &amp; Collaborators
+      </HeaderCopy>
+      <ClientsContainer>
+        <OuterRow>
+          {clients[0].map(({image, name}, i) => (
+            <ClientButton
+              image={image}
+              name={name}
+              active={isEqual(`${activeIndex}`, `[0][${i}]`) }
+              onClick={() => setActiveIndex(`[0][${i}]`)}
+            />
+          ))}
+        </OuterRow>
+        <InnerContainer>
+          <InnerColumn>
+          {clients[1].map(({image, name}, i) => (
+            <ClientButton
+              image={image}
+              name={name}
+              active={isEqual(`${activeIndex}`, `[1][${i}]`) }
+              onClick={() => setActiveIndex(`[1][${i}]`)}
+            />
+          ))}
+          </InnerColumn>
+        <InnerContent>
+        <InnerText>
+          some text here
+        </InnerText>
+        </InnerContent>
+          <InnerColumn>
+          {clients[2].map(({image, name}, i) => (
+            <ClientButton
+              image={image}
+              name={name}
+              active={isEqual(`${activeIndex}`, `[2][${i}]`) }
+              onClick={() => setActiveIndex(`[2][${i}]`)}
+            />
+
+          ))}
+          </InnerColumn>
+        </InnerContainer>
+        <OuterRow>
+          {clients[3].map(({image, name}, i) => (
+            <ClientButton
+              image={image}
+              name={name}
+              active={isEqual(`${activeIndex}`, `[3][${i}]`) }
+              onClick={() => setActiveIndex(`[3][${i}]`)}
+            />
+
+          ))}
+        </OuterRow>
+      </ClientsContainer>
+    </Container>
+  )
+}
 
 export default Clients

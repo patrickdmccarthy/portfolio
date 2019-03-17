@@ -7,7 +7,7 @@ import "./layout.css"
 import styled from "styled-components"
 
 const Container = styled.div`
-  margin: 0 auto;
+  margin: 0 auto 0;
   max-width: 960px;
   padding: 0px 1.0875rem 1.45rem;
   padding-top: 0;
@@ -28,9 +28,6 @@ const Layout = ({ children }) => (
       <>
         <Container>
           <main>{children}</main>
-          <footer>
-            email me
-          </footer>
         </Container>
       </>
     )}
