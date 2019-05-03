@@ -1,59 +1,68 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from "styled-components"
+import styled, {css} from "styled-components"
+import withSizes from 'react-sizes'
 
 import monogram from "../images/monogram.svg"
 
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
-
-  useEffect(() => {
-    savedCallback.current = callback;
-  });
-
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-}
-
 const Container = styled.div`
-  height: 90vh;
+  height: calc(100vh - 85px);
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  ${props => props.isMobile && css`
+    height: calc(100vh - 42px);
+  `}
 `
 
 const HeaderCopy = styled.h1`
   margin-top: .5em;
-  font-size: 51px;
-  line-height: 1.4
+  font-size: 48px;
+  line-height: 1.4;
+  font-family: "Inter var", san-serif;
+  font-weight: 400;
+
+  ${props => props.isTablet && css`
+    font-size: 34px;
+  `}
+
+  ${props => props.isMobile && css`
+    font-size: 24px;
+  `}
 `
 
 const HighlightText = styled.span`
   transition: color .2s ease-in-out;
+  font-weight: 500;
+  font-size: 50px;
+  color: #00f;
+
+  ${props => props.isTablet && css`
+    font-size: 38px;
+  `}
+
+  ${props => props.isMobile && css`
+    font-size: 27px;
+  `}
 `
 
-const colors = [`#e96666`, `#5386EF`, `#72bf4e`]
+const colors = [`#FE7f7f`, `#72bf4e`, `#5386EF`]
 
-const Hero = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
-  useInterval(() => {
-    setActiveIndex(activeIndex === colors.length - 1 ? 0 : activeIndex + 1);
-  }, 3000)
+const Hero = ({isTablet, isMobile}) => {
 
-  return (<Container>
+  return (<Container isMobile={isMobile}>
     <img src={monogram} alt={'Patrick McCarthy logo'} />
-    <HeaderCopy>
-      Patrick McCarthy is a <HighlightText style={{color: `${colors[activeIndex]}`}}>freelance full‑stack developer</HighlightText> based in Berlin
+    <HeaderCopy isMobile={isMobile} isTablet={isTablet}>
+      Patrick McCarthy is a <br/> <HighlightText isMobile={isMobile} isTablet={isTablet} >freelance software developer</HighlightText> <br/> based in Berlin
     </HeaderCopy>
   </Container>)
 }
 
-export default Hero
+const mapSizesToProps = sizes => ({
+  isMobile: withSizes.isMobile(sizes),
+  isTablet: withSizes.isTablet(sizes),
+})
+
+export default withSizes(mapSizesToProps)(Hero)

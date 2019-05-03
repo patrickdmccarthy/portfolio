@@ -1,7 +1,8 @@
 import React from "react"
-import styled, {keyframes} from "styled-components"
+import styled, {keyframes, css} from "styled-components"
+import withSizes from 'react-sizes'
 
-const buttonDiameter = `200px`
+const buttonDiameter = `180px`
 
 const moveY = keyframes`
   from { transform: translateY(0); } to { transform: translateY(calc(100vh - ${buttonDiameter})); }
@@ -14,15 +15,23 @@ const moveX = keyframes`
 const YContainer = styled.div`
   position: fixed;
   display: inline-block;
-  animation: ${moveY} 10s linear 0s infinite alternate;
+  animation: ${moveY} 5s linear 0s infinite alternate;
   z-index: 2;
+
+  ${props => props.isMobile && css`
+    animation: ${moveY} 3s linear 0s infinite alternate;
+  `}
 `
 
 const XContainer = styled.div`
   position: fixed;
   display: inline-block;
-  animation: ${moveX} 10s linear 0s infinite alternate;
+  animation: ${moveX} 8s linear 0s infinite alternate;
   z-index: 2;
+
+  ${props => props.isMobile && css`
+    animation: ${moveX} 6s linear 0s infinite alternate;
+  `}
 `
 
 
@@ -30,19 +39,38 @@ const Ball = styled.a`
   width: ${buttonDiameter};
   height: ${buttonDiameter};
   border-radius: 50%;
-  background-color: #fff760;
+  background-color: #ffe000;
   position: sticky;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 24px;
+  text-align: center;
+  filter: drop-shadow(2px 2px 2px #bbb);
+  text-decoration: none;
+  font-weight: 900;
+  font-style: italic;
+  color: white;
+
+  ${props => props.isMobile && css`
+    font-size: 24px;
+
+    width: 150px;
+    height: 150px;
+  `}
 `
 
-const BallContainer = () => (
-  <YContainer>
-    <XContainer>
-      <Ball href="mailto:patrick.d.mccarthy@gmail.com"><div>Get in touch</div></Ball>
+const BallContainer = ({isMobile}) => (
+  <YContainer isMobile={isMobile}>
+    <XContainer isMobile={isMobile}>
+      <Ball isMobile={isMobile} href="mailto:patrick.d.mccarthy@gmail.com"><div>Let's Work<br/>Together</div></Ball>
     </XContainer>
   </YContainer>
 )
 
-export default BallContainer
+
+const mapSizesToProps = sizes => ({
+  isMobile: withSizes.isMobile(sizes),
+})
+
+export default withSizes(mapSizesToProps)(BallContainer)

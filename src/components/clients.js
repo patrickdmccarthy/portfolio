@@ -2,6 +2,8 @@ import React, {useState} from "react"
 import styled, {css} from "styled-components"
 import Tilt from 'react-tilt'
 import isEqual from 'lodash.isEqual'
+import flatten from 'lodash.flatten'
+import withSizes from 'react-sizes'
 
 import hermanMiller from "../images/herman_miller.svg"
 import casper from "../images/casper.svg"
@@ -21,7 +23,12 @@ const Container = styled.div`
 const HeaderCopy = styled.h2`
   font-size: 24px;
   font-weight: 400;
-  margin-bottom: 2.5em
+  margin-bottom: 2.5em;
+
+  ${props => props.isMobile && css`
+    font-size: 22px;
+    margin-bottom: 50px;
+  `}
 `
 
 const ClientsContainer = styled.div`
@@ -33,10 +40,18 @@ const OuterRow = styled.div`
   display: flex;
   justify-content: space-around;
 
+  input {
+    max-width: 33%;
+  }
+
 `
 
 const InnerContainer = styled.div`
   display: flex;
+
+  input {
+    max-width: 100%;
+  }
 `
 
 const InnerText = styled.div`
@@ -44,6 +59,19 @@ const InnerText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  padding: 35px;
+
+  h3 {
+    font-size: 30px;
+    margin-bottom: .4em;
+  }
+
+  p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 1em;
+  }
 `
 
 const InnerColumn = styled.div`
@@ -67,7 +95,7 @@ const InnerContent = styled.div`
 `
 
 const Logo = styled.input`
-  transition: opacity .2s ease-in-out;
+  transition: opacity .4s ease-in-out;
   opacity: 0.4;
 
   &:hover {
@@ -77,74 +105,89 @@ const Logo = styled.input`
   ${props => props.active && css`
     opacity: 1;
   `}
+
+  ${props => props.isMobile && css`
+    opacity: 1;
+    margin: 0 auto 40px;
+    max-width: 250px;
+  `}
 `
 
 const clients = [
   [
     {
+      id: 1,
       name: 'Herman Miller',
-      project: 'hm',
-      technologies: 'react',
+      project: 'A quirky interactive animation for a classic brand',
+      technologies: 'React, CSS Animation',
       image: hermanMiller
     },
     {
+      id: 2,
       name: 'Casper',
-      project: '',
-      technologies: '',
+      project: 'An endlessly configurable landing page creator',
+      technologies: 'React/Redux, Node.js, SSR, Contentful, CSS modules',
       image: casper,
     },
     {
+      id: 3,
       name: 'Digital Mckinsey',
-      project: 'dm',
-      technologies: 'node',
+      project: 'Various Projects',
+      technologies: 'React/Redux, Node.js, Next.js, Docker',
       image: digitalMckinsey,
     },
   ],
   [
     {
+      id: 4,
       name: 'Foundwork',
-      project: 'fw',
-      technologies: 'ruby',
+      project: 'A social media platform for the contemporary art community ',
+      technologies: 'React, Ruby on Rails, GraphQL, Contentful',
       image: foundwork,
     },
     {
+      id: 5,
       name: 'Marley Spoon',
-      project: 'ms',
-      technologies: 'backbone',
+      project: 'User-facing systems for one of Europe’s leading meal kit startups',
+      technologies: 'Backbone.js, Ruby on Rails',
       image: marleySpoon,
     },
-    ,
   ],
   [
     {
+      id: 6,
       name: 'Diane von Furstenburg',
-      project: 'dvf',
-      technologies: 'as',
+      project: 'A full site redesign and modern ES rewrite',
+      technologies: 'ES6, jQuery, Rollup, SASS',
       image: dvf,
     },
     {
+      id: 7,
       name: 'Sanctuary Computer',
-      project: 'sc',
-      technologies: 'sdfds',
+      project: 'Various Projects',
+      technologies: 'React, CSS Animations, Shopify, Ruby on Rails',
       image: sanctuaryComputer,
     },
   ],
   [{
+      id: 8,
       name: 'Care Of',
-      project: 'ca',
-      technologies: 'react',
+      project: 'A marketing microsite with style',
+      technologies: 'React, Ruby on Rails, Contentful',
       image: careOf,
     },
     {
+      id: 9,
       name: 'Human NYC',
-      project: 'human',
-      technologies: 'react',
+      project: 'Various Projects',
+      technologies: 'React/Redux, Ruby on Rails, , GraphQL, Contentful',
       image: humanNyc,
     },
     {
+      id: 10,
       name: 'Klarna',
-      project: 'kl',
-      technologies: 'node',
+      project: 'Klarna Ident – A revolutionary identity platform for Germany',
+      technologies: 'React/Redux, Node.js, AWS',
       image: klarna,
     },
   ],
@@ -152,73 +195,98 @@ const clients = [
 
 
 
-const ClientButton = ({ image, name, onClick, active }) => (
-  <Tilt >
-    <Logo type="image" src={image} name={name} active={active} onClick={onClick}/>
-  </Tilt>
+const ClientButton = ({ image, name, onClick, active, isMobile }) => (
+    <Logo type="image" src={image} alt={name} name={name} active={active} onMouseEnter={onClick} isMobile={isMobile}/>
 )
 
-const Clients = () => {
-  const [activeIndex, setActiveIndex] = useState(`${[0][0]}`)
+const Clients = ({isMobile}) => {
+  const [activeId, setActiveId] = useState(Math.floor(Math.random() * 10) + 1)
+  const activeClient = flatten(clients).find(client => client.id === activeId)
 
   return (
     <Container>
-      <HeaderCopy>
-        Clients &amp; Collaborators
+      <HeaderCopy isMobile={isMobile}>
+        Clients &amp; Collaborators:
       </HeaderCopy>
       <ClientsContainer>
-        <OuterRow>
-          {clients[0].map(({image, name}, i) => (
+        {isMobile ? flatten(clients).reverse().map(({id, image, name}, i) => (
             <ClientButton
               image={image}
               name={name}
-              active={isEqual(`${activeIndex}`, `[0][${i}]`) }
-              onClick={() => setActiveIndex(`[0][${i}]`)}
+              active={isEqual(activeId, id) }
+              onClick={() => setActiveId(id)}
+              isMobile={isMobile}
+              key={id}
             />
-          ))}
-        </OuterRow>
-        <InnerContainer>
-          <InnerColumn>
-          {clients[1].map(({image, name}, i) => (
-            <ClientButton
-              image={image}
-              name={name}
-              active={isEqual(`${activeIndex}`, `[1][${i}]`) }
-              onClick={() => setActiveIndex(`[1][${i}]`)}
-            />
-          ))}
-          </InnerColumn>
-        <InnerContent>
-        <InnerText>
-          some text here
-        </InnerText>
-        </InnerContent>
-          <InnerColumn>
-          {clients[2].map(({image, name}, i) => (
-            <ClientButton
-              image={image}
-              name={name}
-              active={isEqual(`${activeIndex}`, `[2][${i}]`) }
-              onClick={() => setActiveIndex(`[2][${i}]`)}
-            />
+         ))
+        :
+        <>
+          <OuterRow>
+            {clients[0].map(({id, image, name}, i) => (
+              <ClientButton
+                image={image}
+                name={name}
+                active={isEqual(activeId, id) }
+                onClick={() => setActiveId(id)}
+                key={id}
+              />
+           ))}
+          </OuterRow>
+          <InnerContainer>
+            <InnerColumn>
+            {clients[1].map(({id, image, name}, i) => (
+              <ClientButton
+                image={image}
+                name={name}
+                active={isEqual(activeId, id) }
+                onClick={() => setActiveId(id)}
+                key={id}
+              />
+             ))}
+            </InnerColumn>
+          <InnerContent>
+            <InnerText>
+              <h3>Project</h3>
+              <p>{activeClient.project}</p>
+              <h3>Technologies</h3>
+              <p>{activeClient.technologies}</p>
+            </InnerText>
+          </InnerContent>
+            <InnerColumn>
+            {clients[2].map(({id, image, name}, i) => (
+              <ClientButton
+                image={image}
+                name={name}
+                active={isEqual(activeId, id) }
+                onClick={() => setActiveId(id)}
+                key={id}
+              />
 
-          ))}
+            ))}
           </InnerColumn>
-        </InnerContainer>
-        <OuterRow>
-          {clients[3].map(({image, name}, i) => (
-            <ClientButton
-              image={image}
-              name={name}
-              active={isEqual(`${activeIndex}`, `[3][${i}]`) }
-              onClick={() => setActiveIndex(`[3][${i}]`)}
-            />
+          </InnerContainer>
+          <OuterRow>
+            {clients[3].map(({id, image, name}, i) => (
+              <ClientButton
+                image={image}
+                name={name}
+                active={isEqual(activeId, id) }
+                onClick={() => setActiveId(id)}
+                key={id}
+              />
 
-          ))}
-        </OuterRow>
+            ))}
+          </OuterRow>
+        </>
+        }
       </ClientsContainer>
     </Container>
   )
 }
 
-export default Clients
+const mapSizesToProps = sizes => ({
+  isMobile: withSizes.isMobile(sizes),
+  isTablet: withSizes.isTablet(sizes),
+})
+
+export default withSizes(mapSizesToProps)(Clients)
