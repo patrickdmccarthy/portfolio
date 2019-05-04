@@ -1,9 +1,7 @@
 import React, {useState} from "react"
 import styled, {css} from "styled-components"
-import Tilt from 'react-tilt'
 import isEqual from 'lodash.isEqual'
 import flatten from 'lodash.flatten'
-import withSizes from 'react-sizes'
 
 import hermanMiller from "../images/herman_miller.svg"
 import casper from "../images/casper.svg"
@@ -284,9 +282,4 @@ const Clients = ({isMobile}) => {
   )
 }
 
-const mapSizesToProps = sizes => ({
-  isMobile: withSizes.isMobile(sizes),
-  isTablet: withSizes.isTablet(sizes),
-})
-
-export default withSizes(mapSizesToProps)(Clients)
+export default Clients

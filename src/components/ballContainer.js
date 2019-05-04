@@ -1,8 +1,7 @@
 import React from "react"
 import styled, {keyframes, css} from "styled-components"
-import withSizes from 'react-sizes'
 
-const buttonDiameter = `180px`
+const buttonDiameter = `150px`
 
 const moveY = keyframes`
   from { transform: translateY(0); } to { transform: translateY(calc(100vh - ${buttonDiameter})); }
@@ -15,12 +14,8 @@ const moveX = keyframes`
 const YContainer = styled.div`
   position: fixed;
   display: inline-block;
-  animation: ${moveY} 5s linear 0s infinite alternate;
   z-index: 2;
-
-  ${props => props.isMobile && css`
-    animation: ${moveY} 3s linear 0s infinite alternate;
-  `}
+  animation:  ${moveY} ${props => props.isMobile ? "4s" : "6s"} linear 0s infinite alternate;
 `
 
 const XContainer = styled.div`
@@ -28,10 +23,7 @@ const XContainer = styled.div`
   display: inline-block;
   animation: ${moveX} 8s linear 0s infinite alternate;
   z-index: 2;
-
-  ${props => props.isMobile && css`
-    animation: ${moveX} 6s linear 0s infinite alternate;
-  `}
+  animation:  ${moveX} ${props => props.isMobile ? "5s" : "8s"} linear 0s infinite alternate;
 `
 
 
@@ -68,9 +60,4 @@ const BallContainer = ({isMobile}) => (
   </YContainer>
 )
 
-
-const mapSizesToProps = sizes => ({
-  isMobile: withSizes.isMobile(sizes),
-})
-
-export default withSizes(mapSizesToProps)(BallContainer)
+export default BallContainer
