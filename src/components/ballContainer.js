@@ -15,7 +15,7 @@ const YContainer = styled.div`
   position: fixed;
   display: inline-block;
   z-index: 2;
-  animation:  ${moveY} ${props => props.isMobile ? "4s" : "6s"} linear 0s infinite alternate;
+  animation:  ${moveY} 6s linear 0s infinite alternate;
 `
 
 const XContainer = styled.div`
@@ -23,7 +23,6 @@ const XContainer = styled.div`
   display: inline-block;
   animation: ${moveX} 8s linear 0s infinite alternate;
   z-index: 2;
-  animation:  ${moveX} ${props => props.isMobile ? "5s" : "8s"} linear 0s infinite alternate;
 `
 
 
@@ -41,23 +40,20 @@ const Ball = styled.a`
   filter: drop-shadow(2px 2px 2px #bbb);
   text-decoration: none;
   font-weight: 900;
-  font-style: italic;
   color: white;
 
-  ${props => props.isMobile && css`
-    font-size: 24px;
-
-    width: 150px;
-    height: 150px;
-  `}
+  :hover {
+    text-decoration: underline;
+  }
 `
 
-const BallContainer = ({isMobile}) => (
-  <YContainer isMobile={isMobile}>
-    <XContainer isMobile={isMobile}>
-      <Ball isMobile={isMobile} href="mailto:patrick.d.mccarthy@gmail.com"><div>Let's Work<br/>Together</div></Ball>
-    </XContainer>
-  </YContainer>
-)
+const BallContainer = ({isMobile}) => {
+  return (
+    <YContainer isMobile={isMobile}>
+      <XContainer isMobile={isMobile}>
+        <Ball isMobile={isMobile} href="mailto:patrick.d.mccarthy@gmail.com"><div>Let's Work<br/>Together</div></Ball>
+      </XContainer>
+    </YContainer>
+  )}
 
 export default BallContainer

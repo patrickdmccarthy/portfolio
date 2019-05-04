@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import styled, {css} from "styled-components"
-import isEqual from 'lodash.isEqual'
-import flatten from 'lodash.flatten'
+import {isEqual, flatten} from 'lodash'
 
 import hermanMiller from "../images/herman_miller.svg"
 import casper from "../images/casper.svg"
@@ -93,6 +92,7 @@ const InnerContent = styled.div`
 `
 
 const Logo = styled.input`
+  max-width: 250px;
   transition: opacity .4s ease-in-out;
   opacity: 0.4;
 
@@ -107,7 +107,6 @@ const Logo = styled.input`
   ${props => props.isMobile && css`
     opacity: 1;
     margin: 0 auto 40px;
-    max-width: 250px;
   `}
 `
 
@@ -184,7 +183,7 @@ const clients = [
     {
       id: 10,
       name: 'Klarna',
-      project: 'Klarna Ident – A revolutionary identity platform for Germany',
+      project: 'Klarna Ident – A groundbreaking new identity platform',
       technologies: 'React/Redux, Node.js, AWS',
       image: klarna,
     },

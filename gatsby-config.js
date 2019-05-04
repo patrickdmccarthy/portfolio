@@ -1,12 +1,17 @@
 module.exports = {
   siteMetadata: {
-    title: `Portfolio`,
-    description: `Portfolio`,
-    author: `@p8rickmccarthy`,
+    title: "Patrick McCarthy",
+    titleTemplate: "%s · Freelance Software Developer",
+    description:
+      "Freelance Software Developer in Berlin",
+    author: `Patrick McCarthy`,
+    url: "http://patrickmccarthy.io", // No trailing slash allowed!
+    image: "/images/monogram.svg", // Path to your image you placed in the 'static' folder
+    twitterUsername: "@p8rickmccarthy",
   },
   plugins: [
-    `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-lodash`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -26,6 +31,12 @@ module.exports = {
         theme_color: `#342e1e`,
         display: `minimal-ui`,
         icon: `src/images/circle.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        minify: false, // Breaks styles if not set to false
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
