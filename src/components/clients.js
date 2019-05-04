@@ -38,7 +38,7 @@ const OuterRow = styled.div`
   justify-content: space-around;
 
   input {
-    max-width: 33%;
+    max-width: 25%;
   }
 
 `
