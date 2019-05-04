@@ -15,13 +15,13 @@ const YContainer = styled.div`
   position: fixed;
   display: inline-block;
   z-index: 2;
-  animation:  ${moveY} 6s linear 0s infinite alternate;
+  animation:  ${moveY} 6.2s linear 0s infinite alternate;
 `
 
 const XContainer = styled.div`
   position: fixed;
   display: inline-block;
-  animation: ${moveX} 8s linear 0s infinite alternate;
+  animation: ${moveX} 7.7s linear 0s infinite alternate;
   z-index: 2;
 `
 
@@ -39,7 +39,7 @@ const Ball = styled.a`
   text-align: center;
   filter: drop-shadow(2px 2px 2px #bbb);
   text-decoration: none;
-  font-weight: 900;
+  font-weight: 600;
   color: white;
 
   :hover {
@@ -51,7 +51,7 @@ const BallContainer = ({isMobile}) => {
   return (
     <YContainer isMobile={isMobile}>
       <XContainer isMobile={isMobile}>
-        <Ball isMobile={isMobile} href="mailto:patrick.d.mccarthy@gmail.com"><div>Let's Work<br/>Together</div></Ball>
+        <Ball isMobile={isMobile} href="mailto:patrick.d.mccarthy@gmail.com"><div>get in<br/>touch</div></Ball>
       </XContainer>
     </YContainer>
   )}
