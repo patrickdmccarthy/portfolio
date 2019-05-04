@@ -177,7 +177,7 @@ const clients = [
       id: 9,
       name: 'Human NYC',
       project: 'Various Projects',
-      technologies: 'React/Redux, Ruby on Rails, , GraphQL, Contentful',
+      technologies: 'React/Redux, Ruby on Rails, GraphQL, Contentful',
       image: humanNyc,
     },
     {
