@@ -115,7 +115,7 @@ const clients = [
     {
       id: 1,
       name: 'Herman Miller',
-      project: 'A quirky interactive animation for a classic brand',
+      project: 'An avant-garde interactive animation for a classic brand',
       technologies: 'React, CSS Animation',
       image: hermanMiller
     },
