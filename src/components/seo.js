@@ -2,7 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
-import seoImage from "../images/monogram.svg"
+import seoImage from "../images/monogram.png"
 
 const SEO = ({ title, description, pathname, article }) => (
   <StaticQuery
