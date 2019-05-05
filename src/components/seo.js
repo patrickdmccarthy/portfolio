@@ -2,6 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
+import monogram from "../images/monogram.svg"
 
 const SEO = ({ title, description, image, pathname, article }) => (
   <StaticQuery
@@ -29,7 +30,7 @@ const SEO = ({ title, description, image, pathname, article }) => (
         <>
           <Helmet title={seo.title} titleTemplate={titleTemplate}>
             <meta name="description" content={seo.description} />
-            <meta name="image" content={seo.image} />
+            <meta name="image" content={monogram} />
             {seo.url && <meta property="og:url" content={seo.url} />}
             {(article ? true : null) && (
               <meta property="og:type" content="article" />
@@ -38,7 +39,7 @@ const SEO = ({ title, description, image, pathname, article }) => (
             {seo.description && (
               <meta property="og:description" content={seo.description} />
             )}
-            {seo.image && <meta property="og:image" content={seo.image} />}
+            {monogram && <meta property="og:image" content={monogram} />}
             <meta name="twitter:card" content="summary_large_image" />
             {twitterUsername && (
               <meta name="twitter:creator" content={twitterUsername} />
@@ -47,7 +48,7 @@ const SEO = ({ title, description, image, pathname, article }) => (
             {seo.description && (
               <meta name="twitter:description" content={seo.description} />
             )}
-            {seo.image && <meta name="twitter:image" content={seo.image} />}
+            {monogram && <meta name="twitter:image" content={monogram} />}
           </Helmet>
         </>
       )
