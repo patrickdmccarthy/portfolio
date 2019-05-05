@@ -14,7 +14,7 @@ const SEO = ({ title, description, pathname, article }) => (
           defaultTitle,
           titleTemplate,
           defaultDescription,
-          defaultImage
+          defaultImage,
           siteUrl,
           twitterUsername,
         },
