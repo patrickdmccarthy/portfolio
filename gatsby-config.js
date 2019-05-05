@@ -33,21 +33,16 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Patrick McCarthy`,
+        short_name: `PM`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#342e1e`,
         display: `minimal-ui`,
-        icon: `src/images/circle.png`, // This path is relative to the root of the site.
+        icon: `src/images/monogram.png`, // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: `gatsby-plugin-styled-components`,
-      options: {
-        minify: false, // Breaks styles if not set to false
-      },
-    },
+    `gatsby-plugin-styled-components`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
     // 'gatsby-plugin-offline',
