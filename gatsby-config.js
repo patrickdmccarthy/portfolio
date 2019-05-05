@@ -5,7 +5,7 @@ module.exports = {
     description:
       "Freelance Software Developer in Berlin",
     author: `Patrick McCarthy`,
-    url: "http://patrickmccarthy.io", // No trailing slash allowed!
+    url: "https://patrickmccarthy.io", // No trailing slash allowed!
     image: "./static/monogram.png", // Path to your image you placed in the 'static' folder
     twitterUsername: "@p8rickmccarthy",
   },
