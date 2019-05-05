@@ -76,15 +76,9 @@ const InnerColumn = styled.div`
   flex-direction: column;
   flex: 1;
   justify-content: space-around;
-
-  &:first-child {
-    align-items: flex-start;
-  }
-
-  &:last-child {
-    align-items: flex-end;
-  }
+  align-items: center;
 `
+
 const InnerContent = styled.div`
   display: flex;
   flex: 2;

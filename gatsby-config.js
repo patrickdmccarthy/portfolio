@@ -6,7 +6,7 @@ module.exports = {
       "Freelance Software Developer in Berlin",
     author: `Patrick McCarthy`,
     url: "http://patrickmccarthy.io", // No trailing slash allowed!
-    image: "/images/monogram.svg", // Path to your image you placed in the 'static' folder
+    image: "./public/static/monogram.svg", // Path to your image you placed in the 'static' folder
     twitterUsername: "@p8rickmccarthy",
   },
   plugins: [
