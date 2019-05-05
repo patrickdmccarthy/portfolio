@@ -6,7 +6,7 @@ module.exports = {
       "Freelance Software Developer in Berlin",
     author: `Patrick McCarthy`,
     url: "http://patrickmccarthy.io", // No trailing slash allowed!
-    image: "monogram.svg", // Path to your image you placed in the 'static' folder
+    image: "./static/monogram.png", // Path to your image you placed in the 'static' folder
     twitterUsername: "@p8rickmccarthy",
   },
   plugins: [
@@ -39,7 +39,7 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#342e1e`,
         display: `minimal-ui`,
-        icon: `src/images/monogram.png`, // This path is relative to the root of the site.
+        icon: `src/images/circle.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-styled-components`,

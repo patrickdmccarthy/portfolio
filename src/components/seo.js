@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import monogram from "../images/monogram.jpg"
 
+console.log(monogram)
 const SEO = ({ title, description, pathname, article }) => (
   <StaticQuery
     query={query}
@@ -13,6 +14,7 @@ const SEO = ({ title, description, pathname, article }) => (
           defaultTitle,
           titleTemplate,
           defaultDescription,
+          defaultImage
           siteUrl,
           twitterUsername,
         },
@@ -21,7 +23,7 @@ const SEO = ({ title, description, pathname, article }) => (
       const seo = {
         title: title || defaultTitle,
         description: description || defaultDescription,
-        image: `${siteUrl}${monogram.src}`,
+        image: `${siteUrl}${defaultImage}`,
         url: `${siteUrl}${pathname || "/"}`,
       }
 
@@ -81,6 +83,7 @@ const query = graphql`
         titleTemplate
         defaultDescription: description
         siteUrl: url
+        defaultImage: image
         twitterUsername
       }
     }
